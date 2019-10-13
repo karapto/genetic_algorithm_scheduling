@@ -4,6 +4,4 @@ The scheduling problems are obviously the problems that deal with effective dist
 
 The following are the details:
 
-Wall, Matthew Bartschi. A genetic algorithm for resource-constrained scheduling. Diss. Massachusetts Institute of Technology, 1996.
-
-<https://dspace.mit.edu/bitstream/handle/1721.1/10259/37016532-MIT.pdf?sequence=2>
+Wall, Matthew Bartschi. A genetic algorithm for resource-constrained scheduling. Diss. Massachusetts Institute of Technology, 1996. (https://dspace.mit.edu/bitstream/handle/1721.1/10259/37016532-MIT.pdf?sequence=2)
