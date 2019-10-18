@@ -7,6 +7,8 @@ from deap import creator
 from deap import tools
 from deap import cma
 
+NEED_PEOPLE =[]
+
 # Class of Employees
 class Employee(object):
   def __init__(self, no, name, age, manager, wills):
@@ -15,7 +17,7 @@ class Employee(object):
     self.age = age
     self.manager = manager
 
-    # will is Time zone, 1 is Morning、2 is Noon、3 is Night。
+    # will is Time zone, 1 is Morning、2 is %%!Noon、3 is Night。
     # 例）mon_1 is Monday Morning
     self.wills = wills
 
@@ -36,14 +38,7 @@ class Shift(object):
     'sun_1', 'sun_2', 'sun_3']
 
   # Anticipated people
-  NEED_PEOPLE = [
-    2,3,3,
-    2,3,3,
-    2,3,3,
-    1,2,2,
-    2,3,3,
-    2,4,4,
-    2,4,4]
+  REQUIRED_PEOPLE = NEED_PEOPLE
 
   def __init__(self, list):
     if list == None:
@@ -116,7 +111,7 @@ class Shift(object):
   def abs_people_between_need_and_actual(self):
     result = []
     index = 0
-    for need in self.NEED_PEOPLE:
+    for need in self.REQUIRED_PEOPLE:
       actual = len(self.get_user_nos_by_box_index(index))
       result.append(abs(need - actual))
       index += 1
@@ -167,6 +162,14 @@ class Shift(object):
           result.append(wday_name)
     return result
 
+day_of_week = ["Monday","Tuesday","Wednesday","Thurday","Friday","Saturday","Sunday"]
+day_time = ["Morning","Noon","Evening"]
+
+for i in range(len(day_of_week)):
+    exec("""NEED_PEOPLE.append(int(input("Input required number of persons on " + day_of_week[i] + " " + day_time[0] + ":")))""")
+    exec("""NEED_PEOPLE.append(int(input("Input required number of persons on " + day_of_week[i] + " " + day_time[1] + ":")))""")
+    exec("""NEED_PEOPLE.append(int(input("Input required number of persons on " + day_of_week[i] + " " + day_time[2] + ":")))""")
+    
 
 e0 = Employee(0, "George Washington", 40, False, ['mon_1', 'tue_1', 'wed_1', 'thu_1', 'fri_1', 'sat_1', 'sun_1'])
 e1 = Employee(1, "John Adams", 21, False, ['mon_1', 'mon_2', 'mon_3', 'wed_1', 'wed_2', 'wed_3','fri_1', 'fri_2', 'fri_3'])
@@ -230,12 +233,12 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 if __name__ == '__main__':
     pop = toolbox.population(n=300)
-    CXPB, MUTPB, NGEN = 0.6, 0.5, 1 # 交差確率、突然変異確率、進化計算のループ回数
+    CXPB, MUTPB, NGEN = 0.6, 0.5, 500 # Crossing probability, Mutation probability, Loop count of the evolution computation
 
     print("Evolution Start")
 
     fitnesses = list(map(toolbox.evaluate, pop))
-    for ind, fit in zip(pop, fitnesses):  # zipは複数変数の同時ループ
+    for ind, fit in zip(pop, fitnesses):  #zip function is variables Simultaneous loop (In this code, it's pop and fitnesses.)
         ind.fitness.values = fit
 
     print("  %i 's evaluation'" % len(pop))
@@ -284,6 +287,5 @@ if __name__ == '__main__':
     print("-- Evolution Complete --")
 
     best_ind = tools.selBest(pop, 1)[0]
-    print("Best indivisual: %s, %s" % (best_ind, best_ind.fitness.values))
     s = Shift(best_ind)
     s.print_csv()
