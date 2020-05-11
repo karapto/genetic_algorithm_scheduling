@@ -1,4 +1,4 @@
-# Genetic_Algorithm_Scheduling
+# Genetic Algorithm Scheduling
 
 The scheduling problems are obviously the problems that deal with effective distribution of resources over days. In order to respond to work schedule, a lot of factors should be condidered during the scheduling process. For almost of the scheduling problems, it has been shown their NP-Hard and that they cannot be solved in polynomial time. Genetic Algorithm is used to optimize scheduling process. This algorithm is applied to the problem of where optimization is the key goal.
 
